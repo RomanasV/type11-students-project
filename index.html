@@ -33,7 +33,7 @@
       7. Radio tipo laukeliai, kuriuose pasirenkamas grupės numeris. Turi būti galimybė pasirinkti grupes nuo TYPE 1gr. iki TYPE 15gr.
   4. Šalia kiekvieno įvesties (input) elemento, pridėti label elementą, kuris žymi laukelio pavadinimą. -->
 
-  <form>
+  <form novalidate>
 
     <div class="form-control">
       <label for="student-name">Name:</label>
@@ -47,7 +47,7 @@
 
     <div>
       <label for="student-age">Age:</label>
-      <input type="number" name="age" id="student-age" placeholder="Enter your age" min="18" max="120" class="required" value="30">
+      <input type="number" name="age" id="student-age" placeholder="Enter your age" class="required" value="30">
     </div>
 
     <div>

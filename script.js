@@ -106,6 +106,8 @@ studentForm.addEventListener('submit', (event) => {
   requiredInputs.forEach(input => {
     input.classList.remove('input-error');
 
+    console.log(input.name);
+
     if (!input.value) {
       validForm = false;
       let alertText = 'Ne visi laukeliai užpildyti.';
@@ -118,6 +120,103 @@ studentForm.addEventListener('submit', (event) => {
       inputError.classList.add('input-error-message');
 
       input.after(inputError);
+      return;
+    }
+
+    if (input.name === 'name' && input.value.length < 3) {
+      validForm = false;
+      let alertText = 'Ne visi laukeliai užpildyti.';
+      alertMessage(alertText, 'error-alert');
+
+      input.classList.add('input-error');
+
+      let inputError = document.createElement('span');
+      inputError.textContent = 'Vardas privalo būti bent 3 simbolių ilgumo.';
+      inputError.classList.add('input-error-message');
+
+      input.after(inputError);
+      return;
+    }
+
+    if (input.name === 'surname' && input.value.length < 3) {
+      validForm = false;
+      let alertText = 'Ne visi laukeliai užpildyti.';
+      alertMessage(alertText, 'error-alert');
+
+      input.classList.add('input-error');
+
+      let inputError = document.createElement('span');
+      inputError.textContent = 'Pavardė privalo būti bent 3 simbolių ilgumo.';
+      inputError.classList.add('input-error-message');
+
+      input.after(inputError);
+      return;
+    }
+
+    if (input.name === 'age') {
+      if (input.value < 0) {
+        validForm = false;
+        let alertText = 'Ne visi laukeliai užpildyti.';
+        alertMessage(alertText, 'error-alert');
+  
+        input.classList.add('input-error');
+  
+        let inputError = document.createElement('span');
+        inputError.textContent = 'Amžius privalo būti teigiamas skaičius.';
+        inputError.classList.add('input-error-message');
+  
+        input.after(inputError);
+        return;
+      }
+
+      if (input.value > 120) {
+        validForm = false;
+        let alertText = 'Ne visi laukeliai užpildyti.';
+        alertMessage(alertText, 'error-alert');
+  
+        input.classList.add('input-error');
+  
+        let inputError = document.createElement('span');
+        inputError.textContent = 'Įvestas amžius yra per didelis.';
+        inputError.classList.add('input-error-message');
+  
+        input.after(inputError);
+        return;
+      }
+    }
+    
+    if (input.name === 'phone') {
+      if (input.value.length < 9 || input.value.length > 12) {
+        validForm = false;
+        let alertText = 'Ne visi laukeliai užpildyti.';
+        alertMessage(alertText, 'error-alert');
+  
+        input.classList.add('input-error');
+  
+        let inputError = document.createElement('span');
+        inputError.textContent = 'Įvestas telefono numeris yra neteisingas.';
+        inputError.classList.add('input-error-message');
+  
+        input.after(inputError);
+        return;
+      }
+    }
+    
+    if (input.name === 'email') {
+      if (input.value.length < 5 || !input.value.includes('@')) {
+        validForm = false;
+        let alertText = 'Ne visi laukeliai užpildyti.';
+        alertMessage(alertText, 'error-alert');
+
+        input.classList.add('input-error');
+  
+        let inputError = document.createElement('span');
+        inputError.textContent = 'Įvestas elektroninis paštas yra neteisingas.';
+        inputError.classList.add('input-error-message');
+  
+        input.after(inputError);
+        return;
+      }
     }
   })
 
