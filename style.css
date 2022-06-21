@@ -1,0 +1,15 @@
+:root {
+  --color-error: red;
+}
+
+.input-error {
+  border-color: var(--color-error);
+}
+
+.input-error-message {
+  color: var(--color-error);
+}
+
+.error-alert {
+  color: var(--color-error);
+}
