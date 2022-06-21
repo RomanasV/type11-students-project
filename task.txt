@@ -76,3 +76,14 @@ SEPTINTA UŽDUOTIS:
 7. Jeigu studentas redaguojamas, šį naują (redaguotą) HTML elementą panaudoti perrašant seną studento HTML elementą (kuris išsaugotas 5 žingsnyje).
 
 8. Pakeisti formos submit mygtuko tekstą į pradinį ir pakeisti iššokančio pranešimo tekstą.
+
+
+
+AŠTUNTA UŽDUOTIS (filtravimas):
+1. HTML faile sukurti naują form'ą. Joje pridėti šiuos input elementus: text ir submit.
+2. Formos submit event'o metu, gauti įvestą tekstą ir:
+2.1. Patikrinti ar studentų sąraše yra studentas, kurio varde arba pavardėje yra įvestas tekstas.
+2.2. Ekrane atvaizduoti tik tuos studentus, kurie tenkina sąlygą.
+
+3. Prie formos pridėti select elementą ir jame sukurti sąrašą (option elementus), kuriuose būtų nurodytą pagal kurią informaciją studento yra ieškoma (vardas, pavardė, grupė ir t.t., bet išskyrus telefono numerį ir elektroninį paštą).
+4. Patobulinti formą, kad studento būtų ieškoma ne tik pagal vardą ir pavardę, tačiau ir pagal pasirinktą atributą.
