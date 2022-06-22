@@ -87,3 +87,9 @@ AŠTUNTA UŽDUOTIS (filtravimas):
 
 3. Prie formos pridėti select elementą ir jame sukurti sąrašą (option elementus), kuriuose būtų nurodytą pagal kurią informaciją studento yra ieškoma (vardas, pavardė, grupė ir t.t., bet išskyrus telefono numerį ir elektroninį paštą).
 4. Patobulinti formą, kad studento būtų ieškoma ne tik pagal vardą ir pavardę, tačiau ir pagal pasirinktą atributą.
+5. Leisti ciklą per studentų masyvą ir kiekvieno ciklo metu:
+5.1. Paselektinti studento vardą.
+5.2. Paselektinti studento pavardę.
+5.3. Patikrinti ar varde arba pavardėje yra ieškoma frazė.
+5.3.1. Jeigu nėra, tai reikia paslėpti studento elementą (display: none).
+5.3.2. Jeigu yra, tai reikia parodyti studento elementą (display: block).
