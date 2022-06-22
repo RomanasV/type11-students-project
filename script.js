@@ -1,4 +1,5 @@
 const studentForm = document.querySelector('form');
+let editedStudent = null;
 
 const INITIAL_STUDENT_DATA = [
   {
@@ -35,15 +36,88 @@ const INITIAL_STUDENT_DATA = [
 
 function renderInitialData(students) {
   students.map(student => {
-    console.log(student);
-    console.log(student.name);
-    console.log(student.surname);
-    console.log(student.age);
-    console.log(student.phone);
-    console.log(student.email);
-    console.log(student.itKnowledge);
-    console.log(student.group);
-    console.log(student.interests);
+    let studentName = student.name;
+    let studentSurname = student.surname;
+    let studentAge = student.age;
+    let studentPhone = student.phone;
+    let studentEmail = student.email;
+    let studentItKnowledge = student.itKnowledge;
+    let studentGroup = student.group;
+    let interests = student.interests
+
+    let studentsList = document.querySelector('#students-list');
+    let studentItem = document.createElement('div');
+    studentItem.classList.add('student-item');
+
+    let nameElement = document.createElement('p');
+    nameElement.innerHTML = `<strong>Name:</strong> ${studentName}`;
+
+    let surnameElement = document.createElement('p');
+    surnameElement.innerHTML = `<strong>Surname:</strong> ${studentSurname}`;
+
+    let ageElement = document.createElement('p');
+    ageElement.innerHTML = `<strong>Age:</strong> ${studentAge}`;
+
+    let phoneElement = document.createElement('p');
+    phoneElement.innerHTML = `<strong>Phone:</strong> ****`;
+
+    let emailElement = document.createElement('p');
+    emailElement.innerHTML = `<strong>Email:</strong> ****`;
+
+    let itKnowledgeElement = document.createElement('p');
+    itKnowledgeElement.innerHTML = `<strong>IT Knowledge:</strong> ${studentItKnowledge}`;
+
+    let groupElement = document.createElement('p');
+    groupElement.innerHTML = `<strong>Group:</strong> ${studentGroup}`;
+
+    let interestWrapperElement = document.createElement('div');
+    interestWrapperElement.classList.add('interest-wrapper');
+
+    let interestTitleElement = document.createElement('h4');
+    interestTitleElement.classList.add('interest-title');
+    interestTitleElement.textContent = 'Interests:';
+
+    let interestListElement = document.createElement('ul');
+    interestListElement.classList.add('interest-list');
+
+    interests.forEach(interest => {
+      let interestItemElement = document.createElement('li');
+      interestItemElement.textContent = interest;
+      
+      interestListElement.append(interestItemElement);
+    });
+
+    interestWrapperElement.append(interestTitleElement, interestListElement);
+
+    let privateInfoButton = document.createElement('button');
+    privateInfoButton.textContent = 'Rodyti asmens duomenis';
+
+    privateInfoButton.addEventListener('click', () => {
+      if (!privateInfoButton.classList.contains('hide')) {
+        phoneElement.innerHTML = `<strong>Phone:</strong> ${studentPhone}`;
+        emailElement.innerHTML = `<strong>Email:</strong> ${studentEmail}`;
+        privateInfoButton.textContent = 'Slėpti asmens duomenis';
+      } else {      
+        phoneElement.innerHTML = `<strong>Phone:</strong> ****`;
+        emailElement.innerHTML = `<strong>Email:</strong> ****`;
+        privateInfoButton.textContent = 'Rodyti asmens duomenis';
+      }
+
+      privateInfoButton.classList.toggle('hide');
+    });
+
+    let deleteStudentButton = document.createElement('button');
+    deleteStudentButton.textContent = 'Remove student';
+
+    deleteStudentButton.addEventListener('click', () => {
+      studentItem.remove();
+      let messageText = `Student deleted (${studentName} ${studentSurname})`;
+      alertMessage(messageText);
+    })
+
+    studentItem.append(nameElement, surnameElement, ageElement, phoneElement, emailElement, itKnowledgeElement, groupElement, interestWrapperElement, privateInfoButton, deleteStudentButton);
+
+    studentsList.prepend(studentItem);
   })
 }
 
@@ -244,16 +318,84 @@ studentForm.addEventListener('submit', (event) => {
     studentItem.remove();
     let messageText = `Student deleted (${studentName} ${studentSurname})`;
     alertMessage(messageText);
-  })
+  });
 
-  studentItem.append(nameElement, surnameElement, ageElement, phoneElement, emailElement, itKnowledgeElement, groupElement, interestWrapperElement, privateInfoButton, deleteStudentButton);
+//   SEPTINTA UŽDUOTIS:
+// 1. Prie kiekvieno studento pridėti mygtuką, kurį paspaudus leistų redaguoti studento duomenis.
+// 2. Redaguojant studentą, submit mygtuko tekstas turėtų pasikeisti į „Save Changes".
+// 3. Pakeitus studento duomenis, turi iššokti <span> elementas, kuris informuoja apie studento duomenų redagavimą: „Studento (Vardas Pavardė) duomenys sėkmingai pakeisti". Šis span elementas dingsta po 5 sekundžių.
 
-  studentsList.prepend(studentItem);
+  // 1. Sukurti Edit mygtuką.
+  let editStudentButton = document.createElement('button');
+  editStudentButton.textContent = 'Edit';
+
+  // 2. Prie mygtuko pridėti event listener'į.
+  editStudentButton.addEventListener('click', () => {
+
+    // 3. Surinkti studento duomenis ir jais užpildyti formos laukelius.
+
+    // document.querySelector('#student-name').value = studentName;
+    studentForm.elements.name.value = studentName;
+    // document.querySelector('#student-surname').value = studentSurname;
+    studentForm.elements.surname.value = studentSurname;
+    // document.querySelector('#student-age').value = studentAge;
+    studentForm.elements.age.value = studentAge;
+    // document.querySelector('#student-phone').value = studentPhone;
+    studentForm.elements.phone.value = studentPhone;
+    // document.querySelector('#student-email').value = studentEmail;
+    studentForm.elements.email.value = studentEmail;
+    studentForm.elements.group.value = studentGroup;
+    document.querySelector('#student-it-knowledge').value = studentItKnowledge;
+    studentForm.elements['it-knowledge'].value = studentItKnowledge;
+
+    studentForm.elements.interest.forEach(formInterest => {
+      formInterest.checked = false;
+      interests.forEach(studentInterest => {
+        if (studentInterest.value === formInterest.value) {
+          formInterest.checked = true;
+        }
+      });
+    });
+
+    // 4. Pakeisti formos submit mygtuko tekstą.
+    studentForm.querySelector('[type="submit"]').value = 'Save Changes';
+
+    // 5. Išsaugoti studento HTML elementą kintamąjame.
+    editedStudent = studentItem;
+
+  });
+
+  studentItem.append(nameElement, surnameElement, ageElement, phoneElement, emailElement, itKnowledgeElement, groupElement, interestWrapperElement, privateInfoButton, deleteStudentButton, editStudentButton);
+
+  // 6. Submit event'o metu patikrinti ar kuriame naują studentą, ar redaguojame jau sukurtą.
+  if (editedStudent) {
+    // 7. Jeigu studentas redaguojamas, šį naują (redaguotą) HTML elementą panaudoti perrašant seną studento HTML elementą (kuris išsaugotas 5 žingsnyje).
+
+    // editedStudent kintamasis saugo originalaus studentItem reikšmę
+    console.log(editedStudent);
+
+    // studentItem kintamasis saugo dabartinę formos studento reikšmę
+    console.log(studentItem);
+
+    // editedStudent.innerHTML = studentItem.innerHTML;
+    editedStudent.replaceWith(studentItem);
+    editedStudent = null;
+
+    let alertText = `Student edited (${studentName} ${studentSurname})`;
+    alertMessage(alertText);
+
+    // 8. Pakeisti formos submit mygtuko tekstą į pradinį ir pakeisti iššokančio pranešimo tekstą.
+    studentForm.querySelector('[type="submit"]').value = 'Submit';
+
+  } else {
+    studentsList.prepend(studentItem);
+
+    let alertText = `Student created (${studentName} ${studentSurname})`;
+    alertMessage(alertText);
+  }
+
   // studentForm.reset();
   event.target.reset();
-  
-  let alertText = `Student created (${studentName} ${studentSurname})`;
-  alertMessage(alertText);
 });
 
 function alertMessage(text, elementClass = '') {
