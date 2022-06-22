@@ -115,14 +115,51 @@ function renderInitialData(students) {
       alertMessage(messageText);
     })
 
-    studentItem.append(nameElement, surnameElement, ageElement, phoneElement, emailElement, itKnowledgeElement, groupElement, interestWrapperElement, privateInfoButton, deleteStudentButton);
+    let editStudentButton = document.createElement('button');
+    editStudentButton.textContent = 'Edit';
 
-    studentsList.prepend(studentItem);
+    editStudentButton.addEventListener('click', () => {
+      studentForm.elements.name.value = studentName;
+      studentForm.elements.surname.value = studentSurname;
+      studentForm.elements.age.value = studentAge;
+      studentForm.elements.phone.value = studentPhone;
+      studentForm.elements.email.value = studentEmail;
+      studentForm.elements.group.value = studentGroup;
+      document.querySelector('#student-it-knowledge').value = studentItKnowledge;
+      studentForm.elements['it-knowledge'].value = studentItKnowledge;
+  
+      studentForm.elements.interest.forEach(formInterest => {
+        formInterest.checked = false;
+        interests.forEach(studentInterest => {
+          if (studentInterest.value === formInterest.value) {
+            formInterest.checked = true;
+          }
+        });
+      });
+  
+      studentForm.querySelector('[type="submit"]').value = 'Save Changes';
+      editedStudent = studentItem;
+  
+    });
+
+    studentItem.append(nameElement, surnameElement, ageElement, phoneElement, emailElement, itKnowledgeElement, groupElement, interestWrapperElement, privateInfoButton, deleteStudentButton, editStudentButton);
+
+    if (editedStudent) {
+      editedStudent.replaceWith(studentItem);
+      editedStudent = null;
+  
+      let alertText = `Student edited (${studentName} ${studentSurname})`;
+      alertMessage(alertText);
+      studentForm.querySelector('[type="submit"]').value = 'Submit';
+    } else {
+      studentsList.prepend(studentItem);
+      let alertText = `Student created (${studentName} ${studentSurname})`;
+      alertMessage(alertText);
+    }
   })
 }
 
 renderInitialData(INITIAL_STUDENT_DATA);
-
 
 const itKnowledgeInputElement = document.querySelector('#student-it-knowledge');
 const itKnowledgeOutputElement = document.querySelector('#it-knowledge-output');

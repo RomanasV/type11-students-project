@@ -85,6 +85,10 @@ AŠTUNTA UŽDUOTIS (filtravimas):
 2.1. Patikrinti ar studentų sąraše yra studentas, kurio varde arba pavardėje yra įvestas tekstas.
 2.2. Ekrane atvaizduoti tik tuos studentus, kurie tenkina sąlygą.
 
+
+
+
+
 3. Prie formos pridėti select elementą ir jame sukurti sąrašą (option elementus), kuriuose būtų nurodytą pagal kurią informaciją studento yra ieškoma (vardas, pavardė, grupė ir t.t., bet išskyrus telefono numerį ir elektroninį paštą).
 4. Patobulinti formą, kad studento būtų ieškoma ne tik pagal vardą ir pavardę, tačiau ir pagal pasirinktą atributą.
 5. Leisti ciklą per studentų masyvą ir kiekvieno ciklo metu:
