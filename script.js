@@ -1,4 +1,8 @@
-const studentForm = document.querySelector('form');
+const studentForm = document.querySelector('form#student-form');
+
+
+// 1. Selektinti paieškos forma javascript'e ir priskirti ją kintamąjam.
+const searchForm = document.querySelector('form#search-form');
 let editedStudent = null;
 
 const INITIAL_STUDENT_DATA = [
@@ -50,7 +54,7 @@ function renderInitialData(students) {
     studentItem.classList.add('student-item');
 
     let nameElement = document.createElement('p');
-    nameElement.innerHTML = `<strong>Name:</strong> ${studentName}`;
+    nameElement.innerHTML = `<strong>Name:</strong> <span class="student-name">${studentName}</span>`;
 
     let surnameElement = document.createElement('p');
     surnameElement.innerHTML = `<strong>Surname:</strong> ${studentSurname}`;
@@ -275,7 +279,7 @@ studentForm.addEventListener('submit', (event) => {
   studentItem.classList.add('student-item');
 
   let nameElement = document.createElement('p');
-  nameElement.innerHTML = `<strong>Name:</strong> ${studentName}`;
+  nameElement.innerHTML = `<strong>Name:</strong> <span class="student-name">${studentName}</span>`;
 
   let surnameElement = document.createElement('p');
   surnameElement.innerHTML = `<strong>Surname:</strong> ${studentSurname}`;
@@ -463,3 +467,33 @@ function inputErrorMessage(inputElement, errorMessage) {
 
   inputElement.after(inputError);
 }
+
+// 2. Šiam kintamąjam pridėti event listener'į - jo tipas submit.
+searchForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  
+  // 3. Submit metu, išsaugoti duomenis, kurie įvesti paieškos formoje (text input'e).
+  let searchInput = event.target.elements.search.value.toLowerCase().trim();
+  
+  // 4. Selektinti visus studentų elementus, jis pridedam į kintamąjį.
+  let allStudents = document.querySelectorAll('.student-item');
+  
+  // 5. Leisti ciklą per studentų masyvą ir kiekvieno ciklo metu:
+  allStudents.forEach(student => {
+    // 5.1. Paselektinti studento vardą.
+    let studentName = student.querySelector('.student-name').textContent.toLowerCase();
+    // 5.2. Paselektinti studento pavardę.
+
+    console.log(studentName);
+    console.log(searchInput);
+
+    // 5.3. Patikrinti ar varde arba pavardėje yra ieškoma frazė.
+    if (studentName.includes(searchInput)) {
+      // 5.3.2. Jeigu yra, tai reikia parodyti studento elementą (display: block).
+      student.style.display = 'block';
+    } else {
+      // 5.3.1. Jeigu nėra, tai reikia paslėpti studento elementą (display: none).
+      student.style.display = 'none';
+    }
+  })
+});

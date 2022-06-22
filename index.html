@@ -33,7 +33,7 @@
       7. Radio tipo laukeliai, kuriuose pasirenkamas grupės numeris. Turi būti galimybė pasirinkti grupes nuo TYPE 1gr. iki TYPE 15gr.
   4. Šalia kiekvieno įvesties (input) elemento, pridėti label elementą, kuris žymi laukelio pavadinimą. -->
 
-  <form novalidate>
+  <form id="student-form" novalidate>
 
     <div class="form-control">
       <label for="student-name">Name:</label>
@@ -96,6 +96,17 @@
     </fieldset>
 
     <input type="submit">
+  </form>
+
+  <!-- 1. HTML faile sukurti naują form'ą. Joje pridėti šiuos input elementus: text ir submit. -->
+  <form id="search-form">
+    <input type="text" name="search" id="search-input">
+    <select name="" id="">
+      <option value="">Vardas</option>
+      <option value="">Pavarde</option>
+      <option value="">Amžius</option>
+    </select>
+    <input type="submit" value="Search">
   </form>
 
   <span id="alert"></span>

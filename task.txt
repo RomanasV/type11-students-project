@@ -86,11 +86,15 @@ AŠTUNTA UŽDUOTIS (filtravimas):
 2.2. Ekrane atvaizduoti tik tuos studentus, kurie tenkina sąlygą.
 
 
-
-
-
 3. Prie formos pridėti select elementą ir jame sukurti sąrašą (option elementus), kuriuose būtų nurodytą pagal kurią informaciją studento yra ieškoma (vardas, pavardė, grupė ir t.t., bet išskyrus telefono numerį ir elektroninį paštą).
 4. Patobulinti formą, kad studento būtų ieškoma ne tik pagal vardą ir pavardę, tačiau ir pagal pasirinktą atributą.
+
+
+
+1. Selektinti paieškos forma javascript'e ir priskirti ją kintamąjam.
+2. Šiam kintamąjam pridėti event listener'į - jo tipas submit.
+3. Submit metu, išsaugoti duomenis, kurie įvesti paieškos formoje (text input'e).
+4. Selektinti visus studentų elementus, jis pridedam į kintamąjį.
 5. Leisti ciklą per studentų masyvą ir kiekvieno ciklo metu:
 5.1. Paselektinti studento vardą.
 5.2. Paselektinti studento pavardę.
