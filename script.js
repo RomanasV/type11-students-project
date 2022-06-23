@@ -1,6 +1,4 @@
 const studentForm = document.querySelector('form#student-form');
-
-
 // 1. Selektinti paieškos forma javascript'e ir priskirti ją kintamąjam.
 const searchForm = document.querySelector('form#search-form');
 let editedStudent = null;
@@ -143,7 +141,7 @@ function renderInitialData(students) {
   
       studentForm.querySelector('[type="submit"]').value = 'Save Changes';
       editedStudent = studentItem;
-  
+      itKnowledgeOutputReset();
     });
 
     studentItem.append(nameElement, surnameElement, ageElement, phoneElement, emailElement, itKnowledgeElement, groupElement, interestWrapperElement, privateInfoButton, deleteStudentButton, editStudentButton);
@@ -165,14 +163,20 @@ function renderInitialData(students) {
 
 renderInitialData(INITIAL_STUDENT_DATA);
 
-const itKnowledgeInputElement = document.querySelector('#student-it-knowledge');
-const itKnowledgeOutputElement = document.querySelector('#it-knowledge-output');
+function itKnowledgeOutputReset() {
+  const itKnowledgeInputElement = document.querySelector('#student-it-knowledge');
+  const itKnowledgeOutputElement = document.querySelector('#it-knowledge-output');
 
-itKnowledgeInputElement.addEventListener('input', (event) => {
-  // console.log(itKnowledgeInputElement.value)
-  // console.log(event.target.value);
-  itKnowledgeOutputElement.textContent = event.target.value;
-});
+  itKnowledgeOutputElement.textContent = itKnowledgeInputElement.value;
+  
+  itKnowledgeInputElement.addEventListener('input', (event) => {
+    // console.log(itKnowledgeInputElement.value)
+    // console.log(event.target.value);
+    itKnowledgeOutputElement.textContent = event.target.value;
+  });
+}
+
+itKnowledgeOutputReset();
 
 studentForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -386,7 +390,7 @@ studentForm.addEventListener('submit', (event) => {
     // document.querySelector('#student-email').value = studentEmail;
     studentForm.elements.email.value = studentEmail;
     studentForm.elements.group.value = studentGroup;
-    document.querySelector('#student-it-knowledge').value = studentItKnowledge;
+    // document.querySelector('#student-it-knowledge').value = studentItKnowledge;
     studentForm.elements['it-knowledge'].value = studentItKnowledge;
 
     studentForm.elements.interest.forEach(formInterest => {
@@ -404,6 +408,7 @@ studentForm.addEventListener('submit', (event) => {
     // 5. Išsaugoti studento HTML elementą kintamąjame.
     editedStudent = studentItem;
 
+    itKnowledgeOutputReset();
   });
 
   studentItem.append(nameElement, surnameElement, ageElement, phoneElement, emailElement, itKnowledgeElement, groupElement, interestWrapperElement, privateInfoButton, deleteStudentButton, editStudentButton);
@@ -437,6 +442,7 @@ studentForm.addEventListener('submit', (event) => {
 
   // studentForm.reset();
   event.target.reset();
+  itKnowledgeOutputReset();
 });
 
 function alertMessage(text, elementClass = '') {
