@@ -36,128 +36,132 @@ const INITIAL_STUDENT_DATA = [
   },
 ]
 
+function renderStudent(studentData) {
+  let studentName = studentData.name;
+  let studentSurname = studentData.surname;
+  let studentAge = studentData.age;
+  let studentPhone = studentData.phone;
+  let studentEmail = studentData.email;
+  let studentItKnowledge = studentData.itKnowledge;
+  let studentGroup = studentData.group;
+  let interests = studentData.interests
+
+  let studentsList = document.querySelector('#students-list');
+  let studentItem = document.createElement('div');
+  studentItem.classList.add('student-item');
+
+  let nameElement = document.createElement('p');
+  nameElement.innerHTML = `<strong>Name:</strong> <span class="student-name">${studentName}</span>`;
+
+  let surnameElement = document.createElement('p');
+  surnameElement.innerHTML = `<strong>Surname:</strong> <span class="student-surname">${studentSurname}</span>`;
+
+  let ageElement = document.createElement('p');
+  ageElement.innerHTML = `<strong>Age:</strong> <span class="student-age">${studentAge}</span>`;
+
+  let phoneElement = document.createElement('p');
+  phoneElement.innerHTML = `<strong>Phone:</strong> ****`;
+
+  let emailElement = document.createElement('p');
+  emailElement.innerHTML = `<strong>Email:</strong> ****`;
+
+  let itKnowledgeElement = document.createElement('p');
+  itKnowledgeElement.innerHTML = `<strong>IT Knowledge:</strong> <span class="student-it-knowledge">${studentItKnowledge}</span>`;
+
+  let groupElement = document.createElement('p');
+  groupElement.innerHTML = `<strong>Group:</strong> <span class="student-group">${studentGroup}</span>`;
+
+  let interestWrapperElement = document.createElement('div');
+  interestWrapperElement.classList.add('interest-wrapper');
+
+  let interestTitleElement = document.createElement('h4');
+  interestTitleElement.classList.add('interest-title');
+  interestTitleElement.textContent = 'Interests:';
+
+  let interestListElement = document.createElement('ul');
+  interestListElement.classList.add('interest-list');
+
+  interests.forEach(interest => {
+    let interestItemElement = document.createElement('li');
+    interestItemElement.textContent = interest;
+    
+    interestListElement.append(interestItemElement);
+  });
+
+  interestWrapperElement.append(interestTitleElement, interestListElement);
+
+  let privateInfoButton = document.createElement('button');
+  privateInfoButton.textContent = 'Rodyti asmens duomenis';
+
+  privateInfoButton.addEventListener('click', () => {
+    if (!privateInfoButton.classList.contains('hide')) {
+      phoneElement.innerHTML = `<strong>Phone:</strong> ${studentPhone}`;
+      emailElement.innerHTML = `<strong>Email:</strong> ${studentEmail}`;
+      privateInfoButton.textContent = 'Slėpti asmens duomenis';
+    } else {      
+      phoneElement.innerHTML = `<strong>Phone:</strong> ****`;
+      emailElement.innerHTML = `<strong>Email:</strong> ****`;
+      privateInfoButton.textContent = 'Rodyti asmens duomenis';
+    }
+
+    privateInfoButton.classList.toggle('hide');
+  });
+
+  let deleteStudentButton = document.createElement('button');
+  deleteStudentButton.textContent = 'Remove student';
+
+  deleteStudentButton.addEventListener('click', () => {
+    studentItem.remove();
+    let messageText = `Student deleted (${studentName} ${studentSurname})`;
+    alertMessage(messageText);
+  })
+
+  let editStudentButton = document.createElement('button');
+  editStudentButton.textContent = 'Edit';
+
+  editStudentButton.addEventListener('click', () => {
+    studentForm.elements.name.value = studentName;
+    studentForm.elements.surname.value = studentSurname;
+    studentForm.elements.age.value = studentAge;
+    studentForm.elements.phone.value = studentPhone;
+    studentForm.elements.email.value = studentEmail;
+    studentForm.elements.group.value = studentGroup;
+    document.querySelector('#student-it-knowledge').value = studentItKnowledge;
+    studentForm.elements['it-knowledge'].value = studentItKnowledge;
+
+    studentForm.elements.interest.forEach(formInterest => {
+      formInterest.checked = false;
+      interests.forEach(studentInterest => {
+        if (studentInterest.value === formInterest.value) {
+          formInterest.checked = true;
+        }
+      });
+    });
+
+    studentForm.querySelector('[type="submit"]').value = 'Save Changes';
+    editedStudent = studentItem;
+    itKnowledgeOutputReset();
+  });
+
+  studentItem.append(nameElement, surnameElement, ageElement, phoneElement, emailElement, itKnowledgeElement, groupElement, interestWrapperElement, privateInfoButton, deleteStudentButton, editStudentButton);
+
+  if (editedStudent) {
+    editedStudent.replaceWith(studentItem);
+    editedStudent = null;
+
+    let alertText = `Student edited (${studentName} ${studentSurname})`;
+    alertMessage(alertText);
+    studentForm.querySelector('[type="submit"]').value = 'Submit';
+  } else {
+    studentsList.prepend(studentItem);
+    let alertText = `Student created (${studentName} ${studentSurname})`;
+    alertMessage(alertText);
+  }
+}
+
 function renderInitialData(students) {
   students.map(student => {
-    let studentName = student.name;
-    let studentSurname = student.surname;
-    let studentAge = student.age;
-    let studentPhone = student.phone;
-    let studentEmail = student.email;
-    let studentItKnowledge = student.itKnowledge;
-    let studentGroup = student.group;
-    let interests = student.interests
-
-    let studentsList = document.querySelector('#students-list');
-    let studentItem = document.createElement('div');
-    studentItem.classList.add('student-item');
-
-    let nameElement = document.createElement('p');
-    nameElement.innerHTML = `<strong>Name:</strong> <span class="student-name">${studentName}</span>`;
-
-    let surnameElement = document.createElement('p');
-    surnameElement.innerHTML = `<strong>Surname:</strong> <span class="student-surname">${studentSurname}</span>`;
-
-    let ageElement = document.createElement('p');
-    ageElement.innerHTML = `<strong>Age:</strong> <span class="student-age">${studentAge}</span>`;
-
-    let phoneElement = document.createElement('p');
-    phoneElement.innerHTML = `<strong>Phone:</strong> ****`;
-
-    let emailElement = document.createElement('p');
-    emailElement.innerHTML = `<strong>Email:</strong> ****`;
-
-    let itKnowledgeElement = document.createElement('p');
-    itKnowledgeElement.innerHTML = `<strong>IT Knowledge:</strong> <span class="student-it-knowledge">${studentItKnowledge}</span>`;
-
-    let groupElement = document.createElement('p');
-    groupElement.innerHTML = `<strong>Group:</strong> <span class="student-group">${studentGroup}</span>`;
-
-    let interestWrapperElement = document.createElement('div');
-    interestWrapperElement.classList.add('interest-wrapper');
-
-    let interestTitleElement = document.createElement('h4');
-    interestTitleElement.classList.add('interest-title');
-    interestTitleElement.textContent = 'Interests:';
-
-    let interestListElement = document.createElement('ul');
-    interestListElement.classList.add('interest-list');
-
-    interests.forEach(interest => {
-      let interestItemElement = document.createElement('li');
-      interestItemElement.textContent = interest;
-      
-      interestListElement.append(interestItemElement);
-    });
-
-    interestWrapperElement.append(interestTitleElement, interestListElement);
-
-    let privateInfoButton = document.createElement('button');
-    privateInfoButton.textContent = 'Rodyti asmens duomenis';
-
-    privateInfoButton.addEventListener('click', () => {
-      if (!privateInfoButton.classList.contains('hide')) {
-        phoneElement.innerHTML = `<strong>Phone:</strong> ${studentPhone}`;
-        emailElement.innerHTML = `<strong>Email:</strong> ${studentEmail}`;
-        privateInfoButton.textContent = 'Slėpti asmens duomenis';
-      } else {      
-        phoneElement.innerHTML = `<strong>Phone:</strong> ****`;
-        emailElement.innerHTML = `<strong>Email:</strong> ****`;
-        privateInfoButton.textContent = 'Rodyti asmens duomenis';
-      }
-
-      privateInfoButton.classList.toggle('hide');
-    });
-
-    let deleteStudentButton = document.createElement('button');
-    deleteStudentButton.textContent = 'Remove student';
-
-    deleteStudentButton.addEventListener('click', () => {
-      studentItem.remove();
-      let messageText = `Student deleted (${studentName} ${studentSurname})`;
-      alertMessage(messageText);
-    })
-
-    let editStudentButton = document.createElement('button');
-    editStudentButton.textContent = 'Edit';
-
-    editStudentButton.addEventListener('click', () => {
-      studentForm.elements.name.value = studentName;
-      studentForm.elements.surname.value = studentSurname;
-      studentForm.elements.age.value = studentAge;
-      studentForm.elements.phone.value = studentPhone;
-      studentForm.elements.email.value = studentEmail;
-      studentForm.elements.group.value = studentGroup;
-      document.querySelector('#student-it-knowledge').value = studentItKnowledge;
-      studentForm.elements['it-knowledge'].value = studentItKnowledge;
-  
-      studentForm.elements.interest.forEach(formInterest => {
-        formInterest.checked = false;
-        interests.forEach(studentInterest => {
-          if (studentInterest.value === formInterest.value) {
-            formInterest.checked = true;
-          }
-        });
-      });
-  
-      studentForm.querySelector('[type="submit"]').value = 'Save Changes';
-      editedStudent = studentItem;
-      itKnowledgeOutputReset();
-    });
-
-    studentItem.append(nameElement, surnameElement, ageElement, phoneElement, emailElement, itKnowledgeElement, groupElement, interestWrapperElement, privateInfoButton, deleteStudentButton, editStudentButton);
-
-    if (editedStudent) {
-      editedStudent.replaceWith(studentItem);
-      editedStudent = null;
-  
-      let alertText = `Student edited (${studentName} ${studentSurname})`;
-      alertMessage(alertText);
-      studentForm.querySelector('[type="submit"]').value = 'Submit';
-    } else {
-      studentsList.prepend(studentItem);
-      let alertText = `Student created (${studentName} ${studentSurname})`;
-      alertMessage(alertText);
-    }
+    renderStudent(student);
   })
 }
 
