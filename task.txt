@@ -101,3 +101,14 @@ AŠTUNTA UŽDUOTIS (filtravimas):
 5.3. Patikrinti ar varde arba pavardėje yra ieškoma frazė.
 5.3.1. Jeigu nėra, tai reikia paslėpti studento elementą (display: none).
 5.3.2. Jeigu yra, tai reikia parodyti studento elementą (display: block).
+
+
+DEVINTA UŽDUOTIS (local storage):
+1. Vedamą tekstą į input elementus išsaugoti į localStorage.
+2. Perkrovus puslapį localStorage esančiomis reikšmėmis užpildyti input elementus.
+3. Jeigu sukuriamas studentas, tai localStorage esančias reikšmes reikia išvalyti.
+
+DEŠIMTA UŽDUOTIS:
+1. Studento kūrimo ir redagavimo metu reikia sukurti visų studentų masyvą (tokiu pačiu formatu kaip ir INITIAL_STUDENT_DATA).
+2. Šį masyvą pridėti į localStorage.
+3. Puslapio perkrovimo metu iš localStorage esančio masyvo sukurti studentų sąrašą (pradinių studentų sukūrimo funkcionalumas).
