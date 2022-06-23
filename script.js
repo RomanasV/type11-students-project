@@ -57,10 +57,10 @@ function renderInitialData(students) {
     nameElement.innerHTML = `<strong>Name:</strong> <span class="student-name">${studentName}</span>`;
 
     let surnameElement = document.createElement('p');
-    surnameElement.innerHTML = `<strong>Surname:</strong> ${studentSurname}`;
+    surnameElement.innerHTML = `<strong>Surname:</strong> <span class="student-surname">${studentSurname}</span>`;
 
     let ageElement = document.createElement('p');
-    ageElement.innerHTML = `<strong>Age:</strong> ${studentAge}`;
+    ageElement.innerHTML = `<strong>Age:</strong> <span class="student-age">${studentAge}</span>`;
 
     let phoneElement = document.createElement('p');
     phoneElement.innerHTML = `<strong>Phone:</strong> ****`;
@@ -69,10 +69,10 @@ function renderInitialData(students) {
     emailElement.innerHTML = `<strong>Email:</strong> ****`;
 
     let itKnowledgeElement = document.createElement('p');
-    itKnowledgeElement.innerHTML = `<strong>IT Knowledge:</strong> ${studentItKnowledge}`;
+    itKnowledgeElement.innerHTML = `<strong>IT Knowledge:</strong> <span class="student-it-knowledge">${studentItKnowledge}</span>`;
 
     let groupElement = document.createElement('p');
-    groupElement.innerHTML = `<strong>Group:</strong> ${studentGroup}`;
+    groupElement.innerHTML = `<strong>Group:</strong> <span class="student-group">${studentGroup}</span>`;
 
     let interestWrapperElement = document.createElement('div');
     interestWrapperElement.classList.add('interest-wrapper');
@@ -282,10 +282,10 @@ studentForm.addEventListener('submit', (event) => {
   nameElement.innerHTML = `<strong>Name:</strong> <span class="student-name">${studentName}</span>`;
 
   let surnameElement = document.createElement('p');
-  surnameElement.innerHTML = `<strong>Surname:</strong> ${studentSurname}`;
+  surnameElement.innerHTML = `<strong>Surname:</strong> <span class="student-surname">${studentSurname}</span>`;
 
   let ageElement = document.createElement('p');
-  ageElement.innerHTML = `<strong>Age:</strong> ${studentAge}`;
+  ageElement.innerHTML = `<strong>Age:</strong> <span class="student-age">${studentAge}</span>`;
 
   let phoneElement = document.createElement('p');
   // phoneElement.innerHTML = `<strong>Phone:</strong> ${studentPhone}`;
@@ -296,10 +296,10 @@ studentForm.addEventListener('submit', (event) => {
   emailElement.innerHTML = `<strong>Email:</strong> ****`;
 
   let itKnowledgeElement = document.createElement('p');
-  itKnowledgeElement.innerHTML = `<strong>IT Knowledge:</strong> ${studentItKnowledge}`;
+  itKnowledgeElement.innerHTML = `<strong>IT Knowledge:</strong> <span class="student-it-knowledge">${studentItKnowledge}</span>`;
 
   let groupElement = document.createElement('p');
-  groupElement.innerHTML = `<strong>Group:</strong> ${studentGroup}`;
+  groupElement.innerHTML = `<strong>Group:</strong> <span class="student-group">${studentGroup}</span>`;
 
   let interestWrapperElement = document.createElement('div');
   interestWrapperElement.classList.add('interest-wrapper');
@@ -474,6 +474,9 @@ searchForm.addEventListener('submit', (event) => {
   
   // 3. Submit metu, išsaugoti duomenis, kurie įvesti paieškos formoje (text input'e).
   let searchInput = event.target.elements.search.value.toLowerCase().trim();
+
+  let searchVariation = event.target.elements.variations.value;
+  console.log(searchVariation);
   
   // 4. Selektinti visus studentų elementus, jis pridedam į kintamąjį.
   let allStudents = document.querySelectorAll('.student-item');
@@ -483,17 +486,67 @@ searchForm.addEventListener('submit', (event) => {
     // 5.1. Paselektinti studento vardą.
     let studentName = student.querySelector('.student-name').textContent.toLowerCase();
     // 5.2. Paselektinti studento pavardę.
+    let studentSurname = student.querySelector('.student-surname').textContent.toLowerCase();
+    let studentAge = student.querySelector('.student-age').textContent;
+    let studentItKnowledge = student.querySelector('.student-it-knowledge').textContent;
+    let studentGroup = student.querySelector('.student-group').textContent.toLowerCase();
 
-    console.log(studentName);
     console.log(searchInput);
 
-    // 5.3. Patikrinti ar varde arba pavardėje yra ieškoma frazė.
-    if (studentName.includes(searchInput)) {
-      // 5.3.2. Jeigu yra, tai reikia parodyti studento elementą (display: block).
-      student.style.display = 'block';
-    } else {
-      // 5.3.1. Jeigu nėra, tai reikia paslėpti studento elementą (display: none).
-      student.style.display = 'none';
+    switch (searchVariation) {
+      case 'name':
+
+          // 5.3. Patikrinti ar varde arba pavardėje yra ieškoma frazė.
+        if (studentName.includes(searchInput)) {
+          // 5.3.2. Jeigu yra, tai reikia parodyti studento elementą (display: block).
+          student.style.display = 'block';
+        } else {
+          // 5.3.1. Jeigu nėra, tai reikia paslėpti studento elementą (display: none).
+          student.style.display = 'none';
+        }
+
+        break;
+      case 'surname':
+        
+        if (studentSurname.includes(searchInput)) {
+          student.style.display = 'block';
+        } else {
+          student.style.display = 'none';
+        }
+
+        break;
+      case 'age':
+
+        if (studentAge === searchInput) {
+          student.style.display = 'block';
+        } else {
+          student.style.display = 'none';
+        }
+
+        break;
+      case 'it-knowledge':
+
+        if (studentItKnowledge === searchInput) {
+          student.style.display = 'block';
+        } else {
+          student.style.display = 'none';
+        }
+
+        break;
+      case 'group':
+
+        if (studentGroup.includes(searchInput)) {
+          student.style.display = 'block';
+        } else {
+          student.style.display = 'none';
+        }
+
+        break;
+      default:
+        console.error('Netinkamas');
     }
+
+
   })
 });
+
