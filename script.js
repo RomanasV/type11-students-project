@@ -180,8 +180,6 @@ function itKnowledgeOutputReset() {
   });
 }
 
-itKnowledgeOutputReset();
-
 studentForm.addEventListener('submit', (event) => {
   event.preventDefault();
   
@@ -387,6 +385,9 @@ studentForm.addEventListener('submit', (event) => {
   // studentForm.reset();
   event.target.reset();
   itKnowledgeOutputReset();
+
+  localStorage.setItem('name', '');
+  localStorage.setItem('surname', '');
 });
 
 function alertMessage(text, elementClass = '') {
@@ -562,3 +563,52 @@ searchForm.addEventListener('submit', (event) => {
   })
 });
 
+// PIRMAS BŪDAS
+function storeFormDataInLocalStorage1() {
+  // Selektinami input elementai
+  let nameInput = document.querySelector('#student-name');
+  let surnameInput = document.querySelector('#student-surname');
+  let ageInput = document.querySelector('#student-age');
+  let phoneInput = document.querySelector('#student-phone');
+  let emailInput = document.querySelector('#student-email');
+  let itKnowledgeInput = document.querySelector('#student-it-knowledge');
+  let groupInput = document.querySelector('[name="group"]:checked');
+
+  // Pridedamas event listener prie input elementu
+  nameInput.addEventListener('input', () => {
+    localStorage.setItem('name', nameInput.value);
+  });
+
+  surnameInput.addEventListener('input', () => {
+    localStorage.setItem('surname', surnameInput.value);
+  })
+
+  // Užpildome input elementus su localStorage reikšmėmis
+  nameInput.value = localStorage.getItem('name');
+  surnameInput.value = localStorage.getItem('surname');
+}
+
+// storeFormDataInLocalStorage1();
+
+// ANTRAS BŪDAS
+function storeFormDataInLocalStorage2() {
+  studentForm.addEventListener('input', (event) => {
+    let inputName = event.target.name;
+    let inputValue = event.target.value;
+
+    localStorage.setItem(inputName, inputValue);
+  });
+
+  studentForm.elements.name.value = localStorage.getItem('name');
+  studentForm.elements.surname.value = localStorage.getItem('surname');
+  studentForm.elements.age.value = localStorage.getItem('age');
+  studentForm.elements.phone.value = localStorage.getItem('phone');
+  studentForm.elements.email.value = localStorage.getItem('email');
+  studentForm.elements['it-knowledge'].value = localStorage.getItem('it-knowledge');
+  studentForm.elements.group.value = localStorage.getItem('group');
+}
+
+storeFormDataInLocalStorage2();
+
+
+itKnowledgeOutputReset();
