@@ -102,7 +102,6 @@ AŠTUNTA UŽDUOTIS (filtravimas):
 5.3.1. Jeigu nėra, tai reikia paslėpti studento elementą (display: none).
 5.3.2. Jeigu yra, tai reikia parodyti studento elementą (display: block).
 
-
 DEVINTA UŽDUOTIS (local storage):
 1. Vedamą tekstą į input elementus išsaugoti į localStorage.
 2. Perkrovus puslapį localStorage esančiomis reikšmėmis užpildyti input elementus.
